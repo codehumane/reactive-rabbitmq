@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.stereotype.Component
 import org.springframework.util.StopWatch
 import reactor.core.Disposable
@@ -14,6 +15,10 @@ import reactor.rabbitmq.Sender
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
+@ConditionalOnProperty(
+    name = ["demo.test.application.runnable"],
+    havingValue = "true"
+)
 @Component
 class SendReceiveTestApplicationRunner(
     private val sender: Sender,
