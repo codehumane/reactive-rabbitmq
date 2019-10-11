@@ -5,6 +5,7 @@ import com.rabbitmq.client.ConnectionFactory
 import com.rabbitmq.client.Delivery
 import org.springframework.amqp.core.AmqpAdmin
 import org.springframework.amqp.core.Queue
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.amqp.RabbitProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -22,10 +23,9 @@ import javax.annotation.PreDestroy
 class RabbitMqConfig(
     private val amqpAdmin: AmqpAdmin,
     private val senderConnectionMono: Mono<Connection>,
-    private val receiverConnectionMono: Mono<Connection>
+    private val receiverConnectionMono: Mono<Connection>,
+    @Value("\${demo.rabbitmq.queue.name}") private val queueName: String
 ) {
-
-    private val queueName = "reactive-demo-queue"
 
     @PostConstruct
     fun init() {
