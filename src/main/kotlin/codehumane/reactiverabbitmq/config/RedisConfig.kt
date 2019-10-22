@@ -1,6 +1,5 @@
 package codehumane.reactiverabbitmq.config
 
-import codehumane.reactiverabbitmq.entity.AccountBalance
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,21 +15,20 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 class RedisConfig(private val objectMapper: ObjectMapper) {
 
     @Bean
-    fun redisOperations(factory: ReactiveRedisConnectionFactory): ReactiveRedisOperations<String, AccountBalance> {
+    fun redisOperations(factory: ReactiveRedisConnectionFactory): ReactiveRedisOperations<String, Long> {
         val context = RedisSerializationContext
-            .newSerializationContext<String, AccountBalance>(StringRedisSerializer())
+            .newSerializationContext<String, Long>(StringRedisSerializer())
             .hashKey(StringRedisSerializer())
-            .hashValue(configureJackson2JsonRedisSerializer(AccountBalance::class.java))
+            .hashValue(configureJackson2JsonRedisSerializer(Long::class.java))
             .build()
 
         return ReactiveRedisTemplate(factory, context)
     }
 
-    fun <T> configureJackson2JsonRedisSerializer(t: Class<T>): Jackson2JsonRedisSerializer<T> {
-        val jackson2JsonRedisSerializer = Jackson2JsonRedisSerializer(t)
-        jackson2JsonRedisSerializer.setObjectMapper(objectMapper)
-
-        return jackson2JsonRedisSerializer
+    fun <T> configureJackson2JsonRedisSerializer(clazz: Class<T>): Jackson2JsonRedisSerializer<T> {
+        return Jackson2JsonRedisSerializer(clazz).apply {
+            setObjectMapper(objectMapper)
+        }
     }
 
 }

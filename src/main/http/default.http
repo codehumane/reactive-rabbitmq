@@ -1,3 +1,6 @@
+
+### 거래 이벤트 저장
+
 POST http://localhost:8080/account/0001/transfer
 Accept: application/json
 Content-Type: application/json
@@ -7,13 +10,20 @@ Content-Type: application/json
     "number": "0001"
   },
   "amount": {
-    "value": "-10"
+    "value": "9"
   }
 }
 
-###
 
-GET http://localhost:8080/account/0001/transfer
+
+### 잔액 조회
+
+GET http://localhost:8080/account/0001/balance
 Accept: application/json
 
-###
+
+
+### 거래 이벤트 스트리밍
+
+GET http://localhost:8080/account/0001/transfer/stream
+Accept: text/event-stream
