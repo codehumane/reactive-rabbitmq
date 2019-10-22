@@ -1,4 +1,4 @@
-package codehumane.reactiverabbitmq
+package codehumane.reactiverabbitmq.config
 
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory

@@ -1,4 +1,4 @@
-package codehumane.reactiverabbitmq
+package codehumane.reactiverabbitmq.runner
 
 import com.rabbitmq.client.Delivery
 import org.slf4j.LoggerFactory

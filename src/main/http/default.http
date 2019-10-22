@@ -1,0 +1,19 @@
+POST http://localhost:8080/account/0001/transfer
+Accept: application/json
+Content-Type: application/json
+
+{
+  "account": {
+    "number": "0001"
+  },
+  "amount": {
+    "value": "-10"
+  }
+}
+
+###
+
+GET http://localhost:8080/account/0001/transfer
+Accept: application/json
+
+###
